@@ -1,6 +1,4 @@
-Вот пример содержимого файла `README.md` для вашего проекта:
 
-```markdown
 # Ticker WebSocket Integration Project
 
 ## Описание
@@ -93,4 +91,3 @@ python manage.py binance_ws
 ---
 
 Если возникнут вопросы по настройке или функционалу, не стесняйтесь обращаться.
-```
