@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Ticker Updates</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Определяем протокол (ws/wss) в зависимости от протокола страницы
+      const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
+      // Формируем URL для подключения к WebSocket-серверу
+      const socket = new WebSocket(wsProtocol + "://" + window.location.host + "/ws/ticker/");
+
+      socket.onmessage = function(event) {
+          const data = JSON.parse(event.data);
+          // Обновляем содержимое блока с данными
+          document.getElementById("update").innerText =
+            "Symbol: " + data.symbol +
+            ", Price: " + data.price +
+            ", Time: " + data.trade_time;
+      };
+
+      socket.onopen = function(event) {
+          console.log("WebSocket connection established");
+      };
+
+      socket.onerror = function(error) {
+          console.error("WebSocket error:", error);
+      };
+
+      socket.onclose = function(event) {
+          console.log("WebSocket connection closed");
+      };
+    });
+  </script>
+</head>
+<body>
+  <h1>Последнее обновление</h1>
+  <div id="update">Ожидание данных...</div>
+</body>
+</html>
